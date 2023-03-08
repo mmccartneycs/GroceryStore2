@@ -3,9 +3,9 @@
 --then create your tables
 
 drop table if exists product;
-drop table if exists user;
+drop table if exists users;
 drop table if exists cart;
-create table user (
+create table users (
     account_id int primary key AUTO_INCREMENT,
     email varchar(255) unique,
     password varchar(255)
