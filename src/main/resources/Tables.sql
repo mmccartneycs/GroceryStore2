@@ -17,9 +17,11 @@ create table product (
     description text(2500)
 );
 create table cart(
-    account_id int foreign key not null,
-    upc int foreign key,
-    cart_id int primary key not null
+    account_id int not null,
+    upc int,
+    cart_id int primary key not null,
+    foreign key (account_id) references users(account_id),
+    foreign key (upc) references product(upc),
     quantity int
 );
 
