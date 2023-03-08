@@ -6,9 +6,14 @@ import Model.User;
 import Service.CartService;
 import Service.ProductService;
 import Service.UserService;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonpCharacterEscapes;
+import com.fasterxml.jackson.core.io.JsonEOFException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 
 
 import java.util.List;
@@ -69,11 +74,10 @@ public class GroceryController{
     private void patchCartHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Cart cart = om.readValue(ctx.body(), Cart.class);
-        int aId = cart.getAccount_id();
         int cId = cart.getCart_id();
         int upc = cart.getUpc();
         int q = cart.getQuantity();
-        Cart patchedCart = CartService.patchCartByUpc(aId, cId, upc, q);
+        Cart patchedCart = CartService.patchCartByUpc(cId, upc, q);
         if(patchedCart != null)
             ctx.json(patchedCart);
         else
