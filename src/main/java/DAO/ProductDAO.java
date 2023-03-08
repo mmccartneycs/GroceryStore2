@@ -19,7 +19,7 @@ public class ProductDAO{
                 Product p = new Product(rs.getInt("upc"),
                         rs.getInt("price"),
                         rs.getString("name"),
-                        rs.getString("description"));
+                        rs.getString("tag"));
                 products.add(p);
             }
         }catch(SQLException e){
@@ -39,7 +39,7 @@ public class ProductDAO{
                 Product retProduct = new Product(rs.getInt("upc"),
                         rs.getInt("price"),
                         rs.getString("name"),
-                        rs.getString("description"));
+                        rs.getString("tag"));
                 return retProduct;
             }
         }catch(SQLException e){
@@ -52,7 +52,7 @@ public class ProductDAO{
         Connection connection = ConnectionSingleton.getConnection();
         try {
             //TODO: create field for tags. change sql description to tags.
-            String sql = "SELECT * FROM product WHERE description contains '?';";
+            String sql = "SELECT * FROM product WHERE tag contains '?';";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, filter);
             ResultSet rs = preparedStatement.executeQuery();
@@ -61,7 +61,7 @@ public class ProductDAO{
                 Product product = new Product(rs.getInt("upc"),
                         rs.getInt("price"),
                         rs.getString("name"),
-                        rs.getString("description"));
+                        rs.getString("tag"));
                 products.add(product);
             }
             return products;

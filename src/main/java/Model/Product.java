@@ -4,17 +4,17 @@ public class Product{
     public int upc;
     public double price;
     public String name;
-    public String description;
+    public String tag;
 
     public Product(){
 
     }
 
-    public Product(int upc, double price, String name, String description){
+    public Product(int upc, double price, String name, String tag){
         this.upc = upc;
         this.price = price;
         this.name = name;
-        this.description = description;
+        this.tag = tag;
     }
 
     public int getUpc() {
@@ -42,10 +42,10 @@ public class Product{
     }
 
     public String getDescription() {
-        return description;
+        return tag;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String tag) {
+        this.tag = tag;
     }
 }
