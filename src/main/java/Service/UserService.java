@@ -18,4 +18,6 @@ public class UserService{
         return userDAO.validateUser(user);
     }
 
+    public User getCredentials(int cart_id){return userDAO.getCredentials(cart_id);}
+
 }

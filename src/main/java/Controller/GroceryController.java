@@ -36,7 +36,7 @@ public class GroceryController{
         //app.patch("/member/{member_id}", this::patchUserInfoHandler);
         app.patch("/cart/{quantity}", this::patchCartHandler);
         app.get("/cart/{cart_id}", this::getCartHandler);
-        app.get("/checkout/{member_id}", this::getCheckoutMemberHandler);
+        app.get("/checkout/{cart_id}", this::getCheckoutMemberHandler);
         //app.post("/cart/checkout", this::postCheckoutHandler);
         app.get("/product", this::getProductsHandler);
         app.get("/product/{item}", this::getItemByNameHandler);
@@ -59,7 +59,7 @@ public class GroceryController{
     private void postLoginUserHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         User user = om.readValue(ctx.body(), User.class);
-        User login = userService.verifyUser(user);
+        User login = userService.validateUser(user);
         if(login != null){
             ctx.json(login);
         }else{
@@ -77,7 +77,7 @@ public class GroceryController{
         int cId = cart.getCart_id();
         int upc = cart.getUpc();
         int q = cart.getQuantity();
-        Cart patchedCart = CartService.patchCartByUpc(cId, upc, q);
+        List<Cart> patchedCart = cartService.patchCartByUpc(cId, upc, q);
         if(patchedCart != null)
             ctx.json(patchedCart);
         else
@@ -91,8 +91,8 @@ public class GroceryController{
     }
 
     private void getCheckoutMemberHandler(Context ctx) throws JsonProcessingException{
-        String user_id = ctx.pathParam("member_id");
-        int id = Integer.parseInt(user_id);
+        String cart_id = ctx.pathParam("member_id");
+        int id = Integer.parseInt(cart_id);
         ctx.json(userService.getCredentials(id));
     }
 
@@ -100,7 +100,7 @@ public class GroceryController{
 
     }*/
 
-    private List<Product> getProductsHandler(Context ctx) throws JsonProcessingException{
+    private void getProductsHandler(Context ctx) throws JsonProcessingException{
         ctx.json(productService.getAllProducts());
     }
 

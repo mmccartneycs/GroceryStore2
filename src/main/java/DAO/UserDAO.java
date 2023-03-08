@@ -45,4 +45,9 @@ public class UserDAO{
 
         return null;
     }
+
+    public User getCredentials(int cart_id){
+
+        return null;
+    }
 }
