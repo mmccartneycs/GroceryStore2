@@ -19,8 +19,13 @@ public class CartService{
         return cartDAO.getCart(cart_id);
     }
 
-    public List<Cart> patchCartByUpc(int cart_id, int upc, int quantity){
-        cartDAO.patchCartByUpc(cart_id, upc, quantity);
-        return cartDAO.getCart(cart_id);
+    public List<Cart> patchCartByUpc(Cart cart){
+        if(cart.getQuantity()<=0){
+            cartDAO.deleteItemByUpc(cart.getCart_id(), cart.getUpc());
+        }
+        else {
+            cartDAO.patchCartByUpc(cart);
+        }
+        return cartDAO.getCart(cart.getCart_id());
     }
 }

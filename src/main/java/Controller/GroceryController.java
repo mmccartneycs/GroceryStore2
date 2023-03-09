@@ -32,7 +32,7 @@ public class GroceryController{
         app.post("/register", this::postUserHandler);
         app.post("/login", this::postLoginUserHandler);
         //app.patch("/member/{member_id}", this::patchUserInfoHandler);
-        app.patch("/cart/{cart_id}/{quantity}", this::patchCartHandler);
+        app.patch("/cart", this::patchCartHandler);
         app.get("/cart/{cart_id}", this::getCartHandler);
         app.get("/checkout/{cart_id}", this::getCheckoutMemberHandler);
         //app.post("/cart/checkout", this::postCheckoutHandler);
@@ -71,10 +71,7 @@ public class GroceryController{
     private void patchCartHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Cart cart = om.readValue(ctx.body(), Cart.class);
-        int cId = cart.getCart_id();
-        int upc = cart.getUpc();
-        int q = cart.getQuantity();
-        List<Cart> patchedCart = cartService.patchCartByUpc(cId, upc, q);
+        List<Cart> patchedCart = cartService.patchCartByUpc(cart);
         if(patchedCart != null)
             ctx.json(patchedCart);
         else

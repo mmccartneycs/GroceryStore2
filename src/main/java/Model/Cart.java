@@ -6,6 +6,9 @@ public class Cart {
     public int upc;
     public int quantity;
 
+    public Cart(){
+
+    }
     public Cart(int account_id, int cart_id, int upc, int quantity){
         this.account_id = account_id;
         this.cart_id = cart_id;

@@ -31,20 +31,34 @@ public class CartDAO{
         return cartList;
     }
 
-    public void patchCartByUpc(int cart_id, int upc, int quantity){
+    public void patchCartByUpc(Cart cart){
         Connection con = ConnectionSingleton.getConnection();
         List<Cart> cartList = new ArrayList<>();
         try{
             String sql = "UPDATE cart SET quantity = ? WHERE cart_id = ? AND upc = ?;";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, quantity);
-            ps.setInt(2, cart_id);
-            ps.setInt(3, upc);
+            ps.setInt(1, cart.getQuantity());
+            ps.setInt(2, cart.getCart_id());
+            ps.setInt(3, cart.getUpc());
+            ps.executeUpdate();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }public void deleteItemByUpc(int cart_id, int upc){
+        Connection con = ConnectionSingleton.getConnection();
+        List<Cart> cartList = new ArrayList<>();
+        try{
+            String sql = "DELETE FROM cart WHERE cart_id = ? AND upc = ?;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cart_id);
+            ps.setInt(2, upc);
             ps.executeUpdate();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
+
 
 }
