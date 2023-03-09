@@ -19,7 +19,7 @@ create table product (
 create table cart(
     account_id int not null,
     upc int,
-    cart_id int primary key not null,
+    cart_id int primary key AUTO_INCREMENT, --not null
     foreign key (account_id) references users(account_id),
     foreign key (upc) references product(upc),
     quantity int
@@ -30,3 +30,8 @@ INSERT INTO product (upc, price, name, tag) VALUES
     (4924, 3.49, 'almonds', 'nuts'), (3105, 3.39, 'cashews', 'nuts'), (4930, 2.69, 'peanuts', 'nuts'), (4939, 4.19, 'pistachio', 'nuts'),
     (3062, 1.99, 'bay leaves', 'herbs'), (4888, 2.39, 'chives', 'herbs'), (3475, 2.59, 'mint', 'herbs'), (4904, 2.89, 'sage', 'herbs'),
     (2029, 4.49, 'oreos', 'snack'), (2405, 1.99, 'hershey bar', 'snack'), (2033, 3.99, 'doritos', 'snack'), (3425, 1.79, 'lifesavers gummies', 'snack');
+INSERT INTO users (email, password) VALUES
+    ('firstcustomer@gmail.com', 'genericpassword'), ('pinkPanther@hotmail.com', 'sneaky');
+INSERT INTO cart (account_id, upc, quantity) VALUES
+    (1, 3080, 1), (1, 3115, 3), (1, 3105, 1), (1, 2033, 2)
+    (2, 4924, 2), (2, 4904, 1), (2, 2405, 6), (2, 4260, 1), (2, 4888, 2);

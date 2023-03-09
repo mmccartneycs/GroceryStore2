@@ -32,13 +32,13 @@ public class GroceryController{
         app.post("/register", this::postUserHandler);
         app.post("/login", this::postLoginUserHandler);
         //app.patch("/member/{member_id}", this::patchUserInfoHandler);
-        app.patch("/cart/{quantity}", this::patchCartHandler);
+        app.patch("/cart/{cart_id}/{quantity}", this::patchCartHandler);
         app.get("/cart/{cart_id}", this::getCartHandler);
         app.get("/checkout/{cart_id}", this::getCheckoutMemberHandler);
         //app.post("/cart/checkout", this::postCheckoutHandler);
         app.get("/product", this::getProductsHandler);
         app.get("/product/{search}", this::getSearchHandler);
-        app.get("/product/{filters}", this::getFiltersHandler);
+        app.get("/product/tag/{filters}", this::getFiltersHandler);
         return app;
     }
 

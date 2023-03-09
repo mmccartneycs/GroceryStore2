@@ -29,15 +29,15 @@ public class UserDAO{
     public User validateUser(User user){
         Connection connection = ConnectionSingleton.getConnection();
         try {
-            String sql = "select * from user where email = ? and password = ?;";
+            String sql = "select * from users where email = ? and password = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, user.getUserEmail());
             preparedStatement.setString(2, user.getPassword());
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                User existingUser = new User(rs.getInt("user_id"),
-                        rs.getString("userEmail"),
+                User existingUser = new User(rs.getInt("account_id"),
+                        rs.getString("email"),
                         rs.getString("password"));
                 return existingUser;
             }

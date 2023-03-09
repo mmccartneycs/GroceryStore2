@@ -28,12 +28,12 @@ public class ProductDAO{
         return products;
     }
 
-    public Product getProductByName(String filter){
+    public Product getProductByName(String name){
         Connection connection = ConnectionSingleton.getConnection();
         try {
-            String sql = "select * from product where name  = ?;";
+            String sql = "SELECT * FROM product WHERE name LIKE CONCAT('%',?,'%');";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, filter);
+            preparedStatement.setString(1, name);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 Product retProduct = new Product(rs.getInt("upc"),
@@ -52,7 +52,7 @@ public class ProductDAO{
         Connection connection = ConnectionSingleton.getConnection();
         try {
             //TODO: create field for tags. change sql description to tags.
-            String sql = "SELECT * FROM product WHERE tag contains '?';";
+            String sql = "SELECT * FROM product WHERE tag = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, filter);
             ResultSet rs = preparedStatement.executeQuery();
