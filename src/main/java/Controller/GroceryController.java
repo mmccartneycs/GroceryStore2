@@ -81,13 +81,13 @@ public class GroceryController{
             ctx.json("Empty cart");
     }
 
-    private void getCartHandler(Context ctx){// throws JsonProcessingException{
+    private void getCartHandler(Context ctx) throws JsonProcessingException{
         String user_id = ctx.pathParam("cart_id");
         int id = Integer.parseInt(user_id);
         ctx.json(cartService.getCart(id));
     }
 
-    private void getCheckoutMemberHandler(Context ctx){// throws JsonProcessingException{
+    private void getCheckoutMemberHandler(Context ctx) throws JsonProcessingException{
         String cart_id = ctx.pathParam("member_id");
         int id = Integer.parseInt(cart_id);
         ctx.json(userService.getCredentials(id));
@@ -97,18 +97,18 @@ public class GroceryController{
 
     }*/
 
-    private void getProductsHandler(Context ctx){// throws JsonProcessingException{
+    private void getProductsHandler(Context ctx) throws JsonProcessingException{
         ctx.json(productService.getAllProducts());
     }
 
-    private void getSearchHandler(Context ctx){// throws JsonProcessingException{
+    private void getSearchHandler(Context ctx) throws JsonProcessingException{
         String search_input = ctx.pathParam("search");
         Product product = productService.getProductByName(search_input);
         if(product != null){
             ctx.json(product);
         }
     }
-    private void getFiltersHandler(Context ctx){// throws JsonProcessingException{
+    private void getFiltersHandler(Context ctx) throws JsonProcessingException{
         String filters = ctx.pathParam("filters");
         ctx.json(productService.getProductsByFilters(filters));
     }
