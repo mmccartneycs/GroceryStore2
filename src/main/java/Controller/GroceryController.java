@@ -34,7 +34,8 @@ public class GroceryController{
         //app.patch("/member/{member_id}", this::patchUserInfoHandler);
         app.patch("/cart", this::patchCartHandler);
         app.get("/cart/{cart_id}", this::getCartHandler);
-        app.get("/checkout/{cart_id}", this::getCheckoutMemberHandler);
+        app.post("/cart", this::postCartHandler);
+        //app.get("/checkout/{cart_id}", this::getCheckoutMemberHandler);
         //app.post("/cart/checkout", this::postCheckoutHandler);
         app.get("/product", this::getProductsHandler);
         app.get("/product/{search}", this::getSearchHandler);
@@ -84,13 +85,20 @@ public class GroceryController{
         ctx.json(cartService.getCart(id));
     }
 
-    private void getCheckoutMemberHandler(Context ctx) throws JsonProcessingException{
+    private void postCartHandler(Context ctx) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        Cart cart = om.readValue(ctx.body(), Cart.class);
+        cartService.postItem(cart);
+        ctx.json(cartService.getCart(cart.getCart_id()));
+    }
+
+    /*private void getCheckoutMemberHandler(Context ctx) throws JsonProcessingException{
         String cart_id = ctx.pathParam("member_id");
         int id = Integer.parseInt(cart_id);
         ctx.json(userService.getCredentials(id));
     }
 
-    /*private void postCheckoutHandler(Context ctx) throws JsonProcessingException{
+    private void postCheckoutHandler(Context ctx) throws JsonProcessingException{
 
     }*/
 

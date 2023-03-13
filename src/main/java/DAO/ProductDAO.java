@@ -48,6 +48,26 @@ public class ProductDAO{
         return null;
     }
 
+    public Product getProductByUpc(int upc){
+        Connection connection = ConnectionSingleton.getConnection();
+        try {
+            String sql = "SELECT * FROM product WHERE upc = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, upc);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                Product retProduct = new Product(rs.getInt("upc"),
+                        rs.getInt("price"),
+                        rs.getString("name"),
+                        rs.getString("tag"));
+                return retProduct;
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public List<Product> getProductsByFilters(String filter){
         Connection connection = ConnectionSingleton.getConnection();
         try {

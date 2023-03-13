@@ -45,7 +45,9 @@ public class CartDAO{
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-    }public void deleteItemByUpc(int cart_id, int upc){
+    }
+
+    public void deleteItemByUpc(int cart_id, int upc){
         Connection con = ConnectionSingleton.getConnection();
         List<Cart> cartList = new ArrayList<>();
         try{
@@ -60,5 +62,19 @@ public class CartDAO{
         }
     }
 
+    public void postItem(Cart cart){
+        Connection con = ConnectionSingleton.getConnection();
+        try{
+            String sql = "INSERT INTO cart (account_id, upc, cart_id, quantity) VALUES (?, ?, ?, ?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cart.getAccount_id());
+            ps.setInt(2, cart.getUpc());
+            ps.setInt(3, cart.getCart_id());
+            ps.setInt(4, cart.getQuantity());
+            ps.executeUpdate();
 
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

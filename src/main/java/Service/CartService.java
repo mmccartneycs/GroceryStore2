@@ -28,4 +28,11 @@ public class CartService{
         }
         return cartDAO.getCart(cart.getCart_id());
     }
+
+    public void postItem(Cart cart){
+        if(productDAO.getProductByUpc(cart.getUpc()) != null){
+            cartDAO.postItem(cart);
+        }
+        //return getCart(cart.getCart_id());
+    }
 }
